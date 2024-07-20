@@ -29,7 +29,7 @@ except NameError:  # pragma no cover
     _unicode = str
 
 __author__ = 'Martin Blech'
-__version__ = '0.13.0'
+__version__ = '0.13.701'
 __license__ = 'MIT'
 
 
@@ -52,7 +52,7 @@ class _DictSAXHandler:
                  namespace_separator=':',
                  namespaces=None,
                  force_list=None,
-                 force_seperate_dict=None,
+                 force_separate_dict=None,
                  comment_key='#comment'):
         self.path = []
         self.stack = []
@@ -72,7 +72,7 @@ class _DictSAXHandler:
         self.namespaces = namespaces
         self.namespace_declarations = dict_constructor()
         self.force_list = force_list
-        self.force_seperate_dict = force_seperate_dict
+        self.force_separate_dict = force_separate_dict
         self.comment_key = comment_key
 
     def _build_name(self, full_name):
@@ -174,11 +174,11 @@ class _DictSAXHandler:
             key, data = result
 
         if item is None:
-            if self._should_force_seperate_dict(key, data):
+            if self._should_force_separate_dict(key, data):
                 item = []
             else:
                 item = self.dict_constructor()
-        elif isinstance(item, dict) and self._should_force_seperate_dict(key, data):
+        elif isinstance(item, dict) and self._should_force_separate_dict(key, data):
             item = [{k: v} for k, v in item.items()]
 
         if isinstance(item, list):
@@ -208,8 +208,8 @@ class _DictSAXHandler:
         except TypeError:
             return boolean_or_callable(handler.path[:-1], key, value)
 
-    def _should_force_seperate_dict(self, key, value):
-        return self._is_true_or_returns_true(self, self.force_seperate_dict, key, value)
+    def _should_force_separate_dict(self, key, value):
+        return self._is_true_or_returns_true(self, self.force_separate_dict, key, value)
 
     def _should_force_list(self, key, value):
         return self._is_true_or_returns_true(self, self.force_list, key, value)
