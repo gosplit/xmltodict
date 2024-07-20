@@ -477,7 +477,7 @@ class XMLToDictTestCase(unittest.TestCase):
         parse(xml, item_depth=2, item_callback=handler)
 
 
-    def test_force_seperate_dict_basic(self):
+    def test_force_separate_dict_basic(self):
         xml = """
         <servers>
           <server>
@@ -510,24 +510,24 @@ class XMLToDictTestCase(unittest.TestCase):
                 },
             ],
         }
-        self.assertEqual(parse(xml, force_seperate_dict=('server',)), expectedResult)
+        self.assertEqual(parse(xml, force_separate_dict=('server',)), expectedResult)
 
-    def test_force_seperate_dict_with_other_elements(self):
+    def test_force_separate_dict_with_other_elements(self):
         xml = """
         <config>
             <servers>
-              <not_force_seperate_element>
+              <not_force_separate_element>
                 <name>server0</name>
                 <os>os0</os>
-              </not_force_seperate_element>
+              </not_force_separate_element>
               <server>
                 <name>server1</name>
                 <os>os1</os>
               </server>
-              <not_force_seperate_element>
+              <not_force_separate_element>
                 <name>server2</name>
                 <os>os2</os>
-              </not_force_seperate_element>
+              </not_force_separate_element>
               <server>
                 <name>server3</name>
                 <os>os3</os>
@@ -539,7 +539,7 @@ class XMLToDictTestCase(unittest.TestCase):
         expectedResult = {
             'config': {
                 'servers': [
-                    {'not_force_seperate_element':
+                    {'not_force_separate_element':
                         { 'name': 'server0',
                             'os': 'os0' }
                     },
@@ -547,7 +547,7 @@ class XMLToDictTestCase(unittest.TestCase):
                         { 'name': 'server1',
                             'os': 'os1' }
                     },
-                    { 'not_force_seperate_element':
+                    { 'not_force_separate_element':
                         { 'name': 'server2',
                             'os': 'os2' }
                     },
@@ -559,5 +559,5 @@ class XMLToDictTestCase(unittest.TestCase):
             },
         }
 
-        # only 'server' is in force_seperate_dict
-        self.assertEqual(parse(xml, force_seperate_dict=('server',)), expectedResult)
+        # only 'server' is in force_separate_dict
+        self.assertEqual(parse(xml, force_separate_dict=('server',)), expectedResult)
